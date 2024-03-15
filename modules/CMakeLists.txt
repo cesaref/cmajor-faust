@@ -62,7 +62,7 @@ function (MAKE_CMAJ_LIBRARY)
         else()
             set (LLVM_PATH_ROOT ${LLVM_RELEASE_DIR}/linux/x64)
         endif()
-        set (LLVM_EXTRA_LIBS z)
+        set (LLVM_EXTRA_LIBS z dl pthread)
     elseif (${CMAKE_SYSTEM_NAME} MATCHES "Android")
         if (${CMAKE_SYSTEM_PROCESSOR} MATCHES "aarch64")
             set (LLVM_PATH_ROOT ${LLVM_RELEASE_DIR}/android/arm64)
@@ -305,7 +305,6 @@ function (MAKE_CMAJ_LIBRARY)
         $<$<CONFIG:Debug>:DEBUG=1>
         CMAJOR_DLL=0
         $<$<CONFIG:Debug>:CMAJ_ENABLE_ALLOCATION_CHECKER=1>
-        CHOC_ASSERT=must_include_assertion_header_before_any_choc_headers
         BOOST_STATIC_STRING_STANDALONE=0
         CMAJ_ENABLE_PERFORMER_LLVM=${CMAJ_ENABLE_PERFORMER_LLVM}
         CMAJ_ENABLE_PERFORMER_WEBVIEW=${CMAJ_ENABLE_PERFORMER_WEBVIEW}
