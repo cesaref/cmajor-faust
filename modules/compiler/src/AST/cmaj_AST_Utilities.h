@@ -222,7 +222,10 @@ struct UniqueNameList
             };
 
             auto uniqueName = root;
-            size_t suffix = 2;
+            auto& suffix = suffixes[root];
+
+            if (suffix != 0)
+                uniqueName = root + "_" + std::to_string (suffix++);
 
             while (exists (uniqueName))
                 uniqueName = root + "_" + std::to_string (suffix++);
@@ -236,9 +239,11 @@ struct UniqueNameList
     void clear()
     {
         names.clear();
+        suffixes.clear();
     }
 
     std::unordered_map<const ObjectType*, std::string> names;
+    std::unordered_map<std::string, uint32_t> suffixes;
 };
 
 //==============================================================================
